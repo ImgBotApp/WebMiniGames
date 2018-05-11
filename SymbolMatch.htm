@@ -6,6 +6,8 @@
 			Symbol Match
 		</title>
 		<link rel="stylesheet" type="text/css" href="SymbolMatch.css">
+		<link rel="stylesheet" id="animal-theme" type="text/css" media="none" href="SymbolMatch-animal-theme.css">
+		<link rel="stylesheet" id="jp-theme" type="text/css" media="none" href="SymbolMatch-jp-theme.css">
 		<script src="generate.js">
 		</script>
 	</head>
@@ -19,18 +21,25 @@
 				<h3 id="Score">Score: 0</h3>
 				<label for="DropDownX">Horizontal Count: </label>
 				<select id="DropDownX">
-				  <option value="3">3</option>
-				  <option value="4" selected>4</option>
-				  <option value="5">5</option>
-				  <option value="6">6</option>
+				  <option value="3">3 tiles</option>
+				  <option value="4" selected>4 tiles</option>
+				  <option value="5">5 tiles</option>
+				  <option value="6">6 tiles</option>
 				</select>
+				<br>
 				<label for="DropDownY">Vertical Count: </label>
 				<select id="DropDownY">
-				  <option value="2">2</option>
-				  <option value="3">3</option>
-				  <option value="4" selected>4</option>
-				  <option value="5">5</option>
-				  <option value="6">6</option>
+				  <option value="2">2 tiles</option>
+				  <option value="3">3 tiles</option>
+				  <option value="4" selected>4 tiles</option>
+				  <option value="5">5 tiles</option>
+				  <option value="6">6 tiles</option>
+				</select>
+				<br>
+				<label for="DropDownTheme">Theme: </label>
+				<select id="DropDownTheme">
+				  <option value="jp-theme" selected="">jp</option>
+				  <option value="animal-theme">animal</option>
 				</select>
 				<br>
 				<button type="button" onclick="startNewGame()">New Game</button>
@@ -39,7 +48,6 @@
 	</body>
 	<footer>
 		<script>
-			loadImages("Images/jp-theme/", 18);
 			startNewGame();
 		</script>
 	</footer>
