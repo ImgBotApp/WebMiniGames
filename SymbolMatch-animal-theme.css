@@ -1,0 +1,25 @@
+body{
+	background-image: url("Images/animal-theme/seamless-white-bg.jpg");
+	background-repeat: repeat;
+}
+table{
+	background-image: url("Images/animal-theme/seamless-bg.jpg");
+	background-repeat: repeat;
+    background-size: 200px 200px;
+}
+td{
+	background-image: url("Images/animal-theme/tile-front-bg.png");
+}
+button{
+	background-color: #AC5050;
+}
+button:hover{
+	background-color: #8C3030;
+}
+button:active{
+	background-color: #8C3030;
+}
+select{
+	color:#FFFFFF;
+	background: #AC5050;
+}

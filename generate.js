@@ -2,12 +2,16 @@
  * @author Piotr
  */
 
+//theme and images
+var currentTheme;
 var tileImages;
 var tileBg;
 
+//for storing the current selection
 var flippedSymbolId;
 var flippedTileImg;
 
+//array of width*height symbol IDs (every ID exists twice, except for odd counts where there's one spare')
 var boardState;
 
 //statistics
@@ -17,6 +21,31 @@ var startTime;
 //score
 var currentScore;
 var scoreToWin;
+
+function setTheme()
+{
+	var dropdownTheme = document.getElementById('DropDownTheme');
+	var themeName = dropdownTheme.options[ dropdownTheme.selectedIndex ].value;
+
+	if(currentTheme === themeName)
+	{
+		return;
+	}
+	
+	//disable old theme if there is one
+	if(currentTheme !== undefined)
+	{
+		var currentCSS = document.getElementById(currentTheme);
+		currentCSS.media = "none";
+	}
+	//enable new theme
+	var newThemeCSS = document.getElementById(themeName);
+	newThemeCSS.media = "";
+
+	currentTheme = themeName;
+	
+	loadImages("Images/" + themeName + "/", 18);
+}
 
 function loadImages(inPath, inCount)
 {
@@ -29,8 +58,6 @@ function loadImages(inPath, inCount)
 	
 	tileBg = new Image();
 	tileBg.src = inPath +  'tile-back.png';
-	
-	var bgPath = inPath + 'bg.jpg';
 }
 
 function startNewGame()
@@ -47,6 +74,10 @@ function startNewGame()
 	currentScore = 0;
 	scoreToWin = width * height / 2;
 	
+	//set/change theme if needed
+	setTheme();
+
+	//create cells and tile images
 	var cellId = 0;
 	for(y = 0; y < height; ++y)
 	{
@@ -157,6 +188,4 @@ function shuffle(array)
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
-  return array;
 }
