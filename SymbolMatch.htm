@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<html>
+	<head>
+		<title>
+			Symbol Match
+		</title>
+		<link rel="stylesheet" type="text/css" href="SymbolMatch.css">
+		<script src="generate.js">
+		</script>
+	</head>
+	<body>
+		<div id='MainDiv'>
+			<div id='PlayAreaDiv'>
+				<table id="PlayAreaTable">
+				</table>
+			</div>
+			<div id='SideBarDiv'>
+				<h3 id="Score">Score: 0</h3>
+				<label for="DropDownX">Horizontal Count: </label>
+				<select id="DropDownX">
+				  <option value="3">3</option>
+				  <option value="4" selected>4</option>
+				  <option value="5">5</option>
+				  <option value="6">6</option>
+				</select>
+				<label for="DropDownY">Vertical Count: </label>
+				<select id="DropDownY">
+				  <option value="2">2</option>
+				  <option value="3">3</option>
+				  <option value="4" selected>4</option>
+				  <option value="5">5</option>
+				  <option value="6">6</option>
+				</select>
+				<br>
+				<button type="button" onclick="startNewGame()">New Game</button>
+			</div>	
+		</div>	
+	</body>
+	<footer>
+		<script>
+			loadImages("Images/jp-theme/", 18);
+			startNewGame();
+		</script>
+	</footer>
+</html>
