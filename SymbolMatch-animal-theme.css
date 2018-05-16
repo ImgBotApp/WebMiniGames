@@ -2,12 +2,12 @@ body{
 	background-image: url("Images/animal-theme/seamless-white-bg.jpg");
 	background-repeat: repeat;
 }
-table{
+table#PlayAreaTable{
 	background-image: url("Images/animal-theme/seamless-bg.jpg");
 	background-repeat: repeat;
     background-size: 200px 200px;
 }
-td{
+td.PlayArea{
 	background-image: url("Images/animal-theme/tile-front-bg.png");
 }
 button{

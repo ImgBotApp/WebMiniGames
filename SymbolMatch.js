@@ -2,6 +2,10 @@
  * @author Piotr
  */
 
+
+
+"use strict";
+
 //theme and images
 var currentTheme;
 var tileImages;
@@ -16,7 +20,7 @@ var boardState;
 
 //statistics
 var flipsSoFar;
-var startTime;
+var startDate;
 
 //score
 var currentScore;
@@ -50,7 +54,7 @@ function setTheme()
 function loadImages(inPath, inCount)
 {
 	tileImages = new Array(inCount);
-	for(i = 0; i < inCount; ++i)
+	for(var i = 0; i < inCount; ++i)
 	{
 		tileImages[i] = new Image();
 		tileImages[i].src = inPath + 'tile (' + i + ').png';
@@ -79,12 +83,14 @@ function startNewGame()
 
 	//create cells and tile images
 	var cellId = 0;
-	for(y = 0; y < height; ++y)
+	for(var y = 0; y < height; ++y)
 	{
 		var addedRow = table.insertRow(y);
-		for(x = 0; x < width; ++x)
+		addedRow.className = 'PlayArea';
+		for(var x = 0; x < width; ++x)
 		{
 			var addedCell = addedRow.insertCell(x);
+			addedCell.className = 'PlayArea';
 
 			var newImg = document.createElement('img');
 			newImg.id = "" + cellId;
@@ -94,7 +100,6 @@ function startNewGame()
 			});
 			newImg.className = "Tile";
 			addedCell.appendChild(newImg);
-
 			
 			++cellId;
 		}
@@ -102,16 +107,23 @@ function startNewGame()
 	
 	createBoardState(width * height);
 
-	startTime = new Date();
+	startDate = new Date();
 	
 	//don't use the same images all over just because they are earlier on the list
 	shuffle(tileImages);
+	
+	prepareScoreBoard();
+	
+	var scoreText = document.getElementById('Score');
+	scoreText.innerHTML = 'Score: '+ currentScore + ' / ' + scoreToWin;	
+
+	flipsSoFar = 0;
 }
 
 function createBoardState(inTileCount)
 {
 	boardState = new Array(inTileCount);
-	for(i = 0; i < inTileCount / 2; ++i)
+	for(var i = 0; i < inTileCount / 2; ++i)
 	{
 		boardState[i * 2] = i;
 		boardState[i * 2 + 1] = i;
@@ -134,11 +146,58 @@ function scoreFlippedTiles(tile1, tile2)
 	flippedSymbolId = -1;
 	currentScore++;
 	var scoreText = document.getElementById('Score');
-	scoreText.innerHTML = 'Score: '+ currentScore;	
+	scoreText.innerHTML = 'Score: '+ currentScore + ' / ' + scoreToWin;	
 	if(currentScore === scoreToWin)
 	{
-		var endTime = new Date();
-		var duration = endTime - startTime; 
+		registerWinning();
+	}
+}
+ 
+function registerWinning()
+{
+	var endDate = new Date();
+	var duration = endDate - startDate; 
+	var score = {
+		boardSize: boardState.length,
+		gameDuration: duration,
+		gameMoves: flipsSoFar,
+		gameDate: endDate
+	};
+	addSymbolMatchScore(score);
+	prepareScoreBoard();
+}
+
+function prepareScoreBoard()
+{
+	var scoresTableDescription = document.getElementById("ScoresTableDescription");
+	scoresTableDescription.innerHTML = 'Previous best scores for ' + boardState.length + ' tiles';
+	
+	var scoresTable = document.getElementById("ScoresTable");
+	while(scoresTable.rows.length > 1)
+	{
+		scoresTable.deleteRow(1);
+	}
+	for(var i = 0; i < scoreDataForSymbolMatch.length; ++i)
+	{
+		if(scoreDataForSymbolMatch[i].boardSize === boardState.length)
+		{
+			var scores = scoreDataForSymbolMatch[i].scores;
+			for(var j = 0; j < scores.length; ++j)
+			{
+				var newRow = scoresTable.insertRow(j + 1);
+				var idCell = newRow.insertCell(0);
+				idCell.innerHTML = j + 1;
+				var movesCell = newRow.insertCell(1);
+				movesCell.innerHTML = scores[j].moves;
+				var durationCell = newRow.insertCell(2);
+				durationCell.innerHTML = scores[j].duration/1000 + '[s]';
+				var dateCell = newRow.insertCell(3);
+				dateCell.innerHTML = scores[j].date;
+				var timeCell = newRow.insertCell(4);
+				timeCell.innerHTML = scores[j].time;
+			}
+			break;
+		}
 	}
 }
 
@@ -159,6 +218,7 @@ function imageClicked(img)
 	}
 	else
 	{
+		++flipsSoFar;
 		if(flippedSymbolId !== newlyFlippedSymbolId)
 		{
 			setTimeout(hideFlippedTiles.bind(null, img, flippedTileImg), 1200);
@@ -188,4 +248,4 @@ function shuffle(array)
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-}
+911}
