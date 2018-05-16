@@ -2,11 +2,11 @@ body{
 	background-image: url("Images/jp-theme/seamless-white-bg.jpg");
 	background-repeat: repeat;
 }
-table{
+table#PlayAreaTable{
 	background-image: url("Images/jp-theme/seamless-bg.jpg");
 	background-repeat: repeat;
 }
-td{
+td.PlayArea{
 	background-image: url("Images/jp-theme/tile-front-bg.png");
 }
 button{

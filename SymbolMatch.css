@@ -10,14 +10,29 @@ img.Tile{
 	max-width: 125px;
     max-height: 125px;
 }
-td{
+td.PlayArea{
     background-size: 125px 125px;
     background-repeat: no-repeat;
 	width: 125px;
     height: 125px;
 }
-th, td{
+th.PlayArea, td.PlayArea, tr.PlayArea{
 	border: 8px solid transparent;
+}
+table#ScoresTable
+{
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
+table#ScoresTable th
+{
+	border: 1px solid black;
+	min-width: 80px;
+}
+table#ScoresTable td
+{
+	border: 1px solid black;
+	text-align: right;
 }
 div#MainDiv{
 	float: none;
@@ -33,6 +48,11 @@ div#SideBarDiv{
 	padding: 10px;	
 	border: 1px solid #444444;
 }
+div#ScoreDiv{
+	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: auto;	
+}
 label{
 	font-weight: bold;
 }
@@ -41,6 +61,7 @@ select{
 	margin-top: 2px;
 	margin-left: 5px;
 	font-weight: bold;
+	width: 100%;
 }
 button{
 	display: inline-block;
@@ -55,7 +76,7 @@ button{
 	border-radius: 10px;
 	box-shadow: 0 4px #999;
 	margin-bottom: 5px;
-	margin-top: 5px;
+	margin-top: 40px;
 }
 button:active{
 	box-shadow: 0 5px #666;
