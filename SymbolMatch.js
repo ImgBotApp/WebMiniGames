@@ -191,24 +191,10 @@ function prepareScoreBoard()
 				movesCell.innerHTML = scores[j].moves;
 				var durationCell = newRow.insertCell(2);
 				durationCell.innerHTML = scores[j].duration/1000 + '[s]';
-				
 				var dateCell = newRow.insertCell(3);
-				var date = scores[j].date;
-				var dateHTML = '';
-				if(date.getDate() < 10)
-				{
-					dateHTML = '0';
-				}
-				dateHTML += date.getDate() + '.';
-				if(date.getMonth() < 9)
-				{
-					dateHTML += '0';
-				}
-				dateHTML += (date.getMonth()+1) + '.' + date.getFullYear();
-				dateCell.innerHTML = dateHTML;
-				
+				dateCell.innerHTML = scores[j].date;
 				var timeCell = newRow.insertCell(4);
-				timeCell.innerHTML = date.getHours() + ':' + date.getMinutes();
+				timeCell.innerHTML = scores[j].time;
 			}
 			break;
 		}
