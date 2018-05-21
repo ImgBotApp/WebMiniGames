@@ -2,8 +2,6 @@
  * @author Piotr
  */
 
-
-
 "use strict";
 
 //theme and images
@@ -76,7 +74,7 @@ function startNewGame()
 	var table = document.getElementById('PlayAreaTable');
 	table.innerHTML = "";
 	currentScore = 0;
-	scoreToWin = width * height / 2;
+	scoreToWin = Math.floor(width * height / 2);
 	
 	//set/change theme if needed
 	setTheme();
@@ -123,10 +121,9 @@ function startNewGame()
 function createBoardState(inTileCount)
 {
 	boardState = new Array(inTileCount);
-	for(var i = 0; i < inTileCount / 2; ++i)
+	for(var i = 0; i < inTileCount; ++i)
 	{
-		boardState[i * 2] = i;
-		boardState[i * 2 + 1] = i;
+		boardState[i] = Math.floor(i / 2);
 	}
 	shuffle(boardState);
 	flippedSymbolId = -1;
@@ -152,7 +149,40 @@ function scoreFlippedTiles(tile1, tile2)
 		registerWinning();
 	}
 }
- 
+
+function showWinScreen(score, scoreIndex)
+{
+	$('#Overlay').removeClass('Invisible').addClass('Visible');
+
+	$('img.Tile').attr('src', 'Images/fireworks.png');
+
+	switch(scoreIndex)
+	{
+		case 0:	
+			$('.OverlayImg').attr('src', 'Images/gold.png');
+			break;
+		case 1:	
+			$('.OverlayImg').attr('src', 'Images/silver.png');
+			break;
+		case 2:	
+			$('.OverlayImg').attr('src', 'Images/bronze.png');
+			break;
+		default:	
+			$('.OverlayImg').attr('src', 'Images/fireworks.png');
+			break;
+	}
+	$('#Duration').text('Duration: ' + (score.gameDuration/1000)+ '[s]');
+	$('#Moves').text('Moves: ' + score.gameMoves);
+
+	$('#Overlay').click( 
+		function()
+		{
+			$(this).removeClass('Visible').addClass('Invisible');
+			startNewGame();
+		}
+	);
+}
+
 function registerWinning()
 {
 	var endDate = new Date();
@@ -163,16 +193,18 @@ function registerWinning()
 		gameMoves: flipsSoFar,
 		gameDate: endDate
 	};
-	addSymbolMatchScore(score);
+	var scoreIndex = addSymbolMatchScore(score);
+
+    showWinScreen(score, scoreIndex);
 	prepareScoreBoard();
 }
 
 function prepareScoreBoard()
 {
-	var scoresTableDescription = document.getElementById("ScoresTableDescription");
+	var scoresTableDescription = document.getElementById('ScoresTableDescription');
 	scoresTableDescription.innerHTML = 'Previous best scores for ' + boardState.length + ' tiles';
 	
-	var scoresTable = document.getElementById("ScoresTable");
+	var scoresTable = document.getElementById('ScoresTable');
 	while(scoresTable.rows.length > 1)
 	{
 		scoresTable.deleteRow(1);
