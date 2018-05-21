@@ -8,10 +8,9 @@
 		<link rel="stylesheet" type="text/css" href="SymbolMatch.css">
 		<link rel="stylesheet" id="animal-theme" type="text/css" media="none" href="SymbolMatch-animal-theme.css">
 		<link rel="stylesheet" id="jp-theme" type="text/css" media="none" href="SymbolMatch-jp-theme.css">
-		<script src="CookieHelpers.js">
-		</script>
-		<script src="SymbolMatch.js">
-		</script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+		<script src="ScoreHelpers.js"></script>
+		<script src="SymbolMatch.js"></script>
 	</head>
 	<body>
 		<div id='MainDiv'>
@@ -57,7 +56,14 @@
 			</table>
 		</div>
 		</div>
-	</body>
+ 		<div id="Overlay" class='Invisible'>
+			<img class="OverlayImg" />
+ 			<h1>You Win</h1>
+			<h2 id="Duration">Duration</h2>
+			<h2 id="Moves">Moves</h2>
+			<h3>(Click anywhere to start a new game)</h2>
+ 		</div> 
+ 	</body>
 	<footer>
 		<script>
 			readSymbolMatchScoreDataFromCookie();
